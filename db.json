@@ -15,12 +15,6 @@
   ],
   "tasks": [
     {
-      "categoryId": 2,
-      "id": 1,
-      "title": "Create base Structure",
-      "description": "Create base structure for new project"
-    },
-    {
       "categoryId": 1,
       "id": 2,
       "title": "Define data models",
@@ -31,6 +25,18 @@
       "id": 3,
       "title": "Create forms",
       "description": "Create reactive forms for create category action and for add/edit task"
+    },
+    {
+      "categoryId": 3,
+      "id": 1,
+      "title": "Create structure",
+      "description": "Create base structure for new project, create json db"
+    },
+    {
+      "title": "Add functions",
+      "description": "Add functions add / remove / edit tasks",
+      "categoryId": 2,
+      "id": 4
     }
   ]
 }

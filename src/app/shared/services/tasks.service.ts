@@ -16,4 +16,16 @@ export class TasksService {
   public getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.baseUrl}tasks`);
   }
+
+  public editTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.baseUrl}tasks/${task.id}`, task);
+  }
+
+  public createTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.baseUrl}tasks`, task);
+  }
+
+  public deleteTask(id: number): Observable<Task> {
+    return this.http.delete<Task>(`${this.baseUrl}tasks/${id}`);
+  }
 }

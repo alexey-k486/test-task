@@ -10,7 +10,7 @@
     <p class="form-error-hint">
       <ng-container *ngIf="createForm.get('title').errors">
                 <span *ngIf="createForm.get('title').errors['required'] && createForm.get('title').touched">
-                    This field is required
+                    This field cann't be empty.
                 </span>
         <span *ngIf="createForm.get('title').errors['minlength'] && createForm.get('title').touched">
                     This field should contain minimum 3 chars

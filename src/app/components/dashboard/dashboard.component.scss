@@ -1,0 +1,68 @@
+mat-toolbar {
+  display: flex;
+  justify-content: center;
+  background: white;
+}
+
+h4 {
+  padding: 8px 16px;
+  font-style: italic;
+
+  &.title {
+    //font-weight: bold;
+    font-size: 25px;
+  }
+}
+
+.content {
+  height: calc(100vh - 60px);
+  display: flex;
+}
+
+.category {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 7px;
+  flex: 1 0 280px;
+  max-width: 300px;
+
+  &__title {
+    background-color: gold;
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 18px;
+    padding: 6px;
+    border-radius: 4px;
+  }
+
+  &.transparent {
+    opacity: 0.7;
+  }
+
+}
+
+.tasks {
+  height: 100%;
+
+  &__create {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+}
+
+.addButton {
+  width: 100%;
+  display: block;
+  background-color: white;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  box-shadow: none;
+  border-radius: 7px;
+}

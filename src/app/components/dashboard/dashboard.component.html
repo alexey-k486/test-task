@@ -1,0 +1,40 @@
+<mat-toolbar>
+  <h4 class="title">Tasks management</h4>
+</mat-toolbar>
+<section class="content"
+         cdkDropListGroup>
+  <div class="category"
+       *ngFor="let category of taskItems | keyvalue : keyValueSort">
+    <h4 class="category__title">
+      {{getCategoryName(category.key)}}
+    </h4>
+    <div cdkDropList
+         [cdkDropListData]="taskItems[category.key]"
+         (cdkDropListDropped)="drop($event)"
+         class="tasks">
+      <!--      <app-task *ngFor="let task of category.value"-->
+      <!--                cdkDrag-->
+      <!--                [task]="task">-->
+      <!--      </app-task>-->
+      <button  mat-stroked-button color="primary" class="tasks__create">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="category"
+       [ngClass]="{'transparent': !showCreateCategoryForm}"
+  >
+    <!--    <app-create-category-form *ngIf="showCreateCategoryForm; else plusButton"-->
+    <!--                              (cancel)="showCreateCategoryForm = false"-->
+    <!--                              (create)="addNewCategory($event)"-->
+    <!--    ></app-create-category-form>-->
+
+    <ng-template #plusButton>
+      <button class="addButton"
+              (click)="showCreateCategoryForm = true">
+        Add category
+      </button>
+    </ng-template>
+  </div>
+</section>
+

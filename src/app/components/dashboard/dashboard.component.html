@@ -24,13 +24,13 @@
   <div class="category"
        [ngClass]="{'transparent': !showCreateCategoryForm}"
   >
-    <!--    <app-create-category-form *ngIf="showCreateCategoryForm; else plusButton"-->
-    <!--                              (cancel)="showCreateCategoryForm = false"-->
-    <!--                              (create)="addNewCategory($event)"-->
-    <!--    ></app-create-category-form>-->
+        <app-create-category *ngIf="showCreateCategoryForm; else plusButton"
+                                  (cancel)="showCreateCategoryForm = false"
+                                  (create)="addNewCategory($event)"
+        ></app-create-category>
 
     <ng-template #plusButton>
-      <button class="addButton"
+      <button mat-raised-button color="primary" class="addButton"
               (click)="showCreateCategoryForm = true">
         Add category
       </button>

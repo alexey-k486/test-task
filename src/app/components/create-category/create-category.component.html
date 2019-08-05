@@ -1,0 +1,36 @@
+<form [formGroup]="createForm"
+      (ngSubmit)="createCategory()">
+  <div class="form-input">
+    <mat-form-field>
+        <input matInput
+               placeholder="Category Title"
+               type="text"
+               formControlName="title">
+    </mat-form-field>
+    <p class="form-error-hint">
+      <ng-container *ngIf="createForm.get('title').errors">
+                <span *ngIf="createForm.get('title').errors['required'] && createForm.get('title').touched">
+                    This field is required
+                </span>
+        <span *ngIf="createForm.get('title').errors['minlength'] && createForm.get('title').touched">
+                    This field should contain minimum 3 chars
+                </span>
+      </ng-container>
+    </p>
+  </div>
+  <div class="form-buttons">
+    <button mat-raised-button color="warn"
+            class="form-button cancel"
+            type="button"
+            (click)="closeForm()">
+      Cancel
+    </button>
+    <button  mat-raised-button color="primary"
+             class="form-button success"
+            type="submit"
+            [disabled]="createForm.invalid"
+            (click)="createCategory()">
+      Create
+    </button>
+  </div>
+</form>

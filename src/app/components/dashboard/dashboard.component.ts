@@ -15,7 +15,8 @@ export class DashboardComponent implements OnInit {
   public categories: Category[];
   public tasks: Task[];
   public taskItems: { [name: number]: Task[] } = {};
-  public showCreateCategoryForm: boolean = false;
+  public showCreateCategoryForm = false;
+  public newCategory: Category;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -63,9 +64,13 @@ export class DashboardComponent implements OnInit {
   public addNewCategory(title: string): void {
     const id = Math.max(...this.categories.map(item => item.id)) + 1;
     this.showCreateCategoryForm = false;
-    this.categories.push({
+    this.newCategory = {
       title,
       id
+    };
+    this.categoriesService.addCategory(this.newCategory).subscribe(res => {
+      this.getCategories();
+      console.log('Task created successful');
     });
     this.taskItems[id] = [];
   }

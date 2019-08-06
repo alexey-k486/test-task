@@ -1,3 +1,12 @@
 .form-control {
   width: 95%;
 }
+ .delete-btn {
+   background: gold;
+ }
+
+.form-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

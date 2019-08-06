@@ -24,4 +24,8 @@ export class CategoriesService {
   public deleteCategory(id: number): Observable<Category> {
     return this.http.delete<Category>(`${this.baseUrl}categories/${id}`);
   }
+
+  public changeCategoryTitle(data): Observable<Category> {
+    return this.http.put<Category>(`${this.baseUrl}categories/${data.id}`, data);
+  }
 }

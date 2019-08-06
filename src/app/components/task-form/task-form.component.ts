@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Task } from '../../shared/models/task';
-import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
@@ -18,9 +17,7 @@ export class TaskFormComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.taskEdit, 'task-form');
-  }
+  ngOnInit(): void {}
 
   public closeForm(): void {
     this.cancel.emit();

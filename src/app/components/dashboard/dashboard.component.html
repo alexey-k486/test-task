@@ -11,9 +11,20 @@
        cdkDropListGroup
        cdkDrag
        cdkDragLockAxis="x">
-    <h4 class="category__title">
-      {{category.title}}
-    </h4>
+    <div class="category-name" (click)="edit(category)">
+      <input matInput
+             class="edit-title"
+             type="text"
+             *ngIf="editCategory === category; else titleBlock"
+             [(ngModel)]="category.title"
+             (keyup.enter)="changeTitle(category)">
+      <ng-template #titleBlock>
+        <h4 class="category__title">
+          {{category.title}}
+        </h4>
+      </ng-template>
+    </div>
+
 
     <div cdkDropList
          id="{{category.id}}"
@@ -26,19 +37,21 @@
                       [task]="task"
                       (click)="editForm(task); showTaskForm = true">
             </app-task>
-      <button  mat-stroked-button
-               color="primary"
-               class="tasks__create"
-               (click)="newFormTask(category.id); showTaskForm = true">
-        <mat-icon>add</mat-icon>
+        <button  mat-stroked-button
+                 color="primary"
+                 class="tasks__create"
+                 (click)="newFormTask(category.id); showTaskForm = true">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="remove">
+      <button  mat-icon-button
+               color="warn"
+               class="category-delete"
+               (click)="deleteCategory(category.id)">
+        <mat-icon>clear</mat-icon>
       </button>
     </div>
-    <button  mat-icon-button
-             color="warn"
-             class="category-delete"
-             (click)="deleteCategory(category.id)">
-      <mat-icon>clear</mat-icon>
-    </button>
   </div>
   <div class="category"
        [ngClass]="{'transparent': !showCreateCategoryForm}"
@@ -55,7 +68,7 @@
       </button>
     </ng-template>
   </div>
-  <div class="category">
+  <div class="category task-form">
     <app-task-form *ngIf="showTaskForm; else textBlock"
                    [taskEdit]="taskEdit"
                    [action]="actionTitle"
@@ -65,7 +78,9 @@
                    (create)="addNewTask($event)">
     </app-task-form>
     <ng-template #textBlock>
-      <span>Choose a task</span>
+      <div class="alternative-text">
+        <span>Choose a task</span>
+      </div>
     </ng-template>
   </div>
 </section>

@@ -6,59 +6,50 @@
              placeholder="Title"
              #title="ngModel"
              name="title"
+             required
              [ngModel]="taskEdit.title"
              type="text">
+      <mat-error *ngIf="title.invalid && title.touched">
+        Please enter a title
+      </mat-error>
     </mat-form-field>
-    <p class="form-error-hint">
-<!--      <ng-container *ngIf="createForm.get('title').errors">-->
-<!--                <span *ngIf="createForm.get('title').errors['required'] && createForm.get('title').touched">-->
-<!--                    This field cann't be empty.-->
-<!--                </span>-->
-<!--        <span *ngIf="createForm.get('title').errors['minlength'] && createForm.get('title').touched">-->
-<!--                    This field should contain minimum 3 chars-->
-<!--                </span>-->
-<!--      </ng-container>-->
-    </p>
   </div>
   <div class="form-input-description">
     <mat-form-field class="form-control">
       <textarea matInput
                 placeholder="Description"
                 #description="ngModel"
+                required
                 name="description"
                 [ngModel]="taskEdit.description"
                 type="text"></textarea>
+      <mat-error *ngIf="description.invalid && description.touched">
+        Please enter a description
+      </mat-error>
     </mat-form-field>
-    <p class="form-error-hint">
-      <!--      <ng-container *ngIf="createForm.get('title').errors">-->
-      <!--                <span *ngIf="createForm.get('title').errors['required'] && createForm.get('title').touched">-->
-      <!--                    This field cann't be empty.-->
-      <!--                </span>-->
-      <!--        <span *ngIf="createForm.get('title').errors['minlength'] && createForm.get('title').touched">-->
-      <!--                    This field should contain minimum 3 chars-->
-      <!--                </span>-->
-      <!--      </ng-container>-->
-    </p>
   </div>
   <div class="form-buttons">
-    <button mat-button
+    <button mat-flat-button
             color="warn"
             (click)="closeForm()">
       Cancel
     </button>
-    <button  mat-raised-button color="primary"
+    <button  mat-flat-button
+             color="primary"
              *ngIf="action === 'update'"
              class="form-button success"
              type="submit"
              [disabled]="taskForm.invalid">
       Update
     </button>
-    <button mat-button
+    <button mat-flat-button
+            class="delete-btn"
             *ngIf="action === 'update'"
             (click)="deleteTask(taskForm)">
       Delete
     </button>
-    <button mat-button
+    <button mat-flat-button
+            color="primary"
             *ngIf="action === 'create'"
             (click)="createTask(taskForm)">
       Create

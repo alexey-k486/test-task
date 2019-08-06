@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   public showTaskForm: boolean = false;
   public taskEdit: Task;
   public actionTitle: string = '';
+  public showTitleEdit: boolean = false;
+  public editCategory: Category;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -53,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public addNewCategory(title: string): void {
-    const id = this.categories.length + 1;
+    const id = Math.max(...this.categories.map(item => item.id)) + 1;
     this.showCreateCategoryForm = false;
     this.newCategory = {
       title,
@@ -61,9 +63,7 @@ export class DashboardComponent implements OnInit {
     };
     this.categoriesService.addCategory(this.newCategory).subscribe(res => {
       this.getCategories();
-      console.log('Task created successful');
     });
-    this.taskItems[id] = [];
   }
 
   public deleteCategory(id: number): void {
@@ -74,11 +74,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getConnectionList(): string[] {
+  public getConnectionList(): string[] {
     return this.categories.map(item => `${item.id}`);
   }
 
-  dropTask(event: CdkDragDrop<Task[]>) {
+  public dropTask(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -87,9 +87,17 @@ export class DashboardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
+    this.updateTaskCategory(event.container.data[event.currentIndex], event.container.id);
   }
 
-  dropCategory(event: CdkDragDrop<Category[]>) {
+  public updateTaskCategory(tasks, categoryId) {
+    tasks.categoryId = categoryId;
+    this.tasksService.editTask(tasks).subscribe(res => {
+      console.log('Task change column');
+    });
+  }
+
+  public dropCategory(event: CdkDragDrop<Category[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
@@ -125,8 +133,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public addNewTask(task) {
-    console.log(task, 'emit')
-    const taskId = this.tasks.length + 1;
+    const taskId = Math.max(...this.tasks.map(item => item.id)) + 1;
     this.showTaskForm = false;
     const newTask = {
       title: task.title,
@@ -134,10 +141,21 @@ export class DashboardComponent implements OnInit {
       categoryId: task.categoryId,
       id: taskId
     };
-    console.log(newTask, 'new task');
     this.tasksService.createTask(newTask)
       .subscribe(res => {
         this.getTasks();
+      });
+  }
+
+  edit(category) {
+    this.editCategory = category;
+  }
+
+  public changeTitle(data) {
+    this.editCategory = null;
+    this.categoriesService.changeCategoryTitle(data)
+      .subscribe(res => {
+        console.log('Title has been changed');
       });
   }
 

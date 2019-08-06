@@ -29,17 +29,26 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getCategories()
+      .then(() => {
+        this.getTasks();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  public getCategories(): void {
-    this.categoriesService.getCategories()
-      .subscribe(data => {
-        this.categories = data;
-        this.getTasks();
-      }, error => {
-        console.log(error);
-      });
+  public getCategories(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.categoriesService.getCategories()
+        .subscribe(data => {
+          this.categories = data;
+          resolve();
+        }, error => {
+          reject();
+        });
+    });
+
   }
 
   public getTasks(): void {
@@ -129,6 +138,7 @@ export class DashboardComponent implements OnInit {
     this.tasksService.deleteTask(task.id)
       .subscribe(res => {
         this.getTasks();
+        this.showTaskForm = false;
       });
   }
 

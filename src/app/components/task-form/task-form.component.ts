@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Task } from '../../shared/models/task';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
@@ -11,9 +12,9 @@ export class TaskFormComponent implements OnInit {
   @Input() taskEdit: Task;
   @Input() action: string;
   @Output() public cancel: EventEmitter<void> = new EventEmitter();
-  @Output() public update: EventEmitter<any> = new EventEmitter();
-  @Output() public delete: EventEmitter<void> = new EventEmitter();
-  @Output() public create: EventEmitter<void> = new EventEmitter();
+  @Output() public update: EventEmitter<Task> = new EventEmitter();
+  @Output() public delete: EventEmitter<Task> = new EventEmitter();
+  @Output() public create: EventEmitter<Task> = new EventEmitter();
 
   constructor() { }
 
@@ -23,18 +24,18 @@ export class TaskFormComponent implements OnInit {
     this.cancel.emit();
   }
 
-  public updateTask(task): void {
+  public updateTask(task: NgForm): void {
     task.value.id = this.taskEdit.id;
     task.value.categoryId = this.taskEdit.categoryId;
     this.update.emit(task.value);
   }
 
-  public deleteTask(task): void {
+  public deleteTask(task: NgForm): void {
     task.value.id = this.taskEdit.id;
     this.delete.emit(task.value);
   }
 
-  public createTask(task): void {
+  public createTask(task: NgForm): void {
     task.value.categoryId = this.taskEdit.categoryId;
     this.create.emit(task.value);
   }
